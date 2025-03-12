@@ -1,11 +1,10 @@
 import streamlit as st
 import requests
-from solana.rpc.api import Client
 
-# Function to get new pairs
+# Define the function to get new pairs
 def get_new_pairs():
     try:
-        url = "https://api.dexscreener.com/latest/dex/pairs/solana"
+        url = "https://api.dexscreener.com/latest/dex/tokens/solana"
         response = requests.get(url)
         response.raise_for_status()  # Raise an error for bad status codes
         data = response.json()
@@ -14,7 +13,7 @@ def get_new_pairs():
         st.error(f"Failed to fetch data: {e}")
         return []
 
-# Function to detect rug pulls
+# Define the function to detect rug pulls
 def detect_rug_pull(pair):
     try:
         liquidity = float(pair["liquidity"]["usd"])
@@ -25,7 +24,7 @@ def detect_rug_pull(pair):
         st.error(f"Error analyzing pair: {e}")
         return False
 
-# Function to find high potential gainers
+# Define the function to find high potential gainers
 def find_high_potential(pair):
     try:
         volume = float(pair["volume"]["h24"])
@@ -41,6 +40,7 @@ def find_high_potential(pair):
 st.title("Crypto Bot 🚀")
 st.write("Scanning for new tokens on Solana...")
 
+# Call the function
 pairs = get_new_pairs()
 if pairs:
     for pair in pairs:
