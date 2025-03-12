@@ -1,0 +1,4 @@
+solana
+pandas
+requests
+streamlit
