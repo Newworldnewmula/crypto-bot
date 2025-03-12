@@ -4,11 +4,16 @@ import requests
 # Define the function to get new pairs
 def get_new_pairs():
     try:
-        url = "https://api.dexscreener.com/latest/dex/tokens/solana"
+        url = "https://api.dexscreener.com/latest/dex/search?q=SOLANA"
         response = requests.get(url)
         response.raise_for_status()  # Raise an error for bad status codes
         data = response.json()
-        return data["pairs"]
+        print(data)  # Print the raw API response
+        if "pairs" in data and len(data["pairs"]) > 0:
+            return data["pairs"]
+        else:
+            st.warning("No pairs found in the API response.")
+            return []
     except Exception as e:
         st.error(f"Failed to fetch data: {e}")
         return []
