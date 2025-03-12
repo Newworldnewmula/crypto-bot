@@ -9,4 +9,3 @@ for pair in pairs:
         st.error(f"🚨 Rug pull detected: {pair['baseToken']['name']}")
     if find_high_potential(pair):
         st.success(f"🚀 High potential: {pair['baseToken']['name']}")
-        
